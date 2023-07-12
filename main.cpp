@@ -3,7 +3,7 @@
 int totalLinesOfCode = 0;
 int main()
 {
-	string Link;
+	string pathOfFiles;
 
 	// Check the Path. If the Path is Invalid, type again 
 
@@ -13,8 +13,8 @@ int main()
 	while (true)
 	{
 		cout << "Enter the path to the file or directory:    \n" << endl;
-		getline(cin, Link);
-		if (filesystem::exists(Link))
+		getline(cin, pathOfFiles);
+		if (filesystem::exists(pathOfFiles))
 		{
 			cout << "Valid Path" << endl;
 			cout << "\n";
@@ -29,19 +29,19 @@ int main()
 	cout << "===========================================================================\n" << endl;
 
 	//Check path is directory or file
-	if (std::filesystem::is_directory(Link))
+	if (std::filesystem::is_directory(pathOfFiles))
 	{
-		listdir(Link);
+		listDir(pathOfFiles);
 	}
-	else if (std::filesystem::is_regular_file(Link))
+	else if (std::filesystem::is_regular_file(pathOfFiles))
 	{
-		int lengthOfLinkFile = Link.length();
-		if (Link[lengthOfLinkFile - 2] == 'p' && Link[lengthOfLinkFile - 1] == 'y')
-			totalLineInPython(Link);
-		else if (Link[lengthOfLinkFile - 4] == 'h' && Link[lengthOfLinkFile - 3] == 't' && Link[lengthOfLinkFile - 2] == 'm' && Link[lengthOfLinkFile - 1] == 'l')
-			totalLineInHTML(Link);
+		int lengthOfPathFile = pathOfFiles.length();
+		if (pathOfFiles[lengthOfPathFile - 2] == 'p' && pathOfFiles[lengthOfPathFile - 1] == 'y')
+			totalLineInPython(pathOfFiles);
+		else if (pathOfFiles[lengthOfPathFile - 4] == 'h' && pathOfFiles[lengthOfPathFile - 3] == 't' && pathOfFiles[lengthOfPathFile - 2] == 'm' && pathOfFiles[lengthOfPathFile - 1] == 'l')
+			totalLineInHTML(pathOfFiles);
 		else
-			totalLines(Link);
+			totalLines(pathOfFiles);
 	}
 	cout << "===========================================================================\n" << endl;
 	cout << "Total lines of code: " << totalLinesOfCode << endl;

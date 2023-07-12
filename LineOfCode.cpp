@@ -3,27 +3,27 @@
 
 extern int totalLinesOfCode;
 
-void totalLines(string a)
+void totalLines(string pathOfFile)
 {
-	int Sum = 0;
-	int check = 0;
+	int SumOfLines = 0;
+	int checkCommentLine = 0;
 	vector<string> lines;
 	string line;
 	int count = 0;
 	ifstream outfile;
-	outfile.open(a, ios::in);
+	outfile.open(pathOfFile, ios::in);
 	while (getline(outfile, line))
 	{
 		lines.push_back(line);
-		int n = line.length();
-		if (check == 0)
+		int lengthOfLine = line.length();
+		if (checkCommentLine == 0)
 		{
 			if (line == "")
 			{
 				count++;
 			}
 
-			for (int i = 0; i < n - 1; i++)
+			for (int i = 0; i < lengthOfLine - 1; i++)
 			{
 				if (line[i] == '/' && line[i + 1] == '/')
 				{
@@ -31,25 +31,25 @@ void totalLines(string a)
 				}
 				else
 				{
-					for (int i = 0; i < n - 1; i++)
+					for (int i = 0; i < lengthOfLine - 1; i++)
 					{
 						if (line[i] == '/' && line[i + 1] == '*')
 						{
 							count++;
-							check = 1;
+							checkCommentLine = 1;
 							break;
 						}
-						if (check == 1)
+						if (checkCommentLine == 1)
 							break;
 					}
 				}
 			}
 
 		}
-		if (check == 1)
+		if (checkCommentLine == 1)
 		{
-			if (line[n - 2] == '*' && line[n - 1] == '/')
-				check = 0;
+			if (line[lengthOfLine - 2] == '*' && line[lengthOfLine - 1] == '/')
+				checkCommentLine = 0;
 			else
 				count++;
 		}
@@ -57,30 +57,30 @@ void totalLines(string a)
 
 	for (const auto& i : lines)
 	{
-		Sum++;
+		SumOfLines++;
 	}
 	outfile.close();
-	totalLinesOfCode = totalLinesOfCode + Sum - count;;
+	totalLinesOfCode = totalLinesOfCode + SumOfLines - count;;
 }
 
 // check LOC for .Py(python file)
-void totalLineInPython(string a)
+void totalLineInPython(string pathOfFile)
 {
-	int Sum = 0;
+	int SumOfLines = 0;
 	vector<string> lines;
 	string line;
 	int count = 0;
 	ifstream outfile;
-	outfile.open(a, ios::in);
+	outfile.open(pathOfFile, ios::in);
 	while (getline(outfile, line))
 	{
 		lines.push_back(line);
-		int n = line.length();
+		int lengthOfLine = line.length();
 		if (line == "")
 		{
 			count++;
 		}
-		for (int i = 0; i < n - 1; i++)
+		for (int i = 0; i < lengthOfLine - 1; i++)
 		{
 			if (line[i] == '#')
 			{
@@ -92,27 +92,27 @@ void totalLineInPython(string a)
 
 	for (const auto& i : lines)
 	{
-		Sum++;
+		SumOfLines++;
 	}
 	outfile.close();
-	totalLinesOfCode = totalLinesOfCode + Sum - count;
+	totalLinesOfCode = totalLinesOfCode + SumOfLines - count;
 }
 
 //Check LOC for .HTML(HTML file)
-void totalLineInHTML(string a)
+void totalLineInHTML(string pathOfFile)
 {
-	int Sum = 0;
-	int check = 0;
+	int SumOfLines = 0;
+	int checkCommentLine = 0;
 	vector<string> lines;
 	string line;
 	int count = 0;
 	ifstream outfile;
-	outfile.open(a, ios::in);
+	outfile.open(pathOfFile, ios::in);
 	while (getline(outfile, line))
 	{
 		lines.push_back(line);
-		int n = line.length();
-		if (check == 0)
+		int lengthOfLine = line.length();
+		if (checkCommentLine == 0)
 		{
 			if (line == "")
 			{
@@ -120,22 +120,22 @@ void totalLineInHTML(string a)
 			}
 			else
 			{
-				for (int i = 0; i < n - 1; i++)
+				for (int i = 0; i < lengthOfLine - 1; i++)
 				{
 					if (line[i] == '<' && line[i + 1] == '!' && line[i + 2] == '-' && line[i + 3] == '-')
 					{
 						count++;
-						check = 1;
+						checkCommentLine = 1;
 					}
-					if (check == 1)
+					if (checkCommentLine == 1)
 						break;
 				}
 			}
 		}
-		if (check == 1)
+		if (checkCommentLine == 1)
 		{
-			if (line[n - 3] == '-' && line[n - 2] == '-' && line[n - 1] == '>')
-				check = 0;
+			if (line[lengthOfLine - 3] == '-' && line[lengthOfLine - 2] == '-' && line[lengthOfLine - 1] == '>')
+				checkCommentLine = 0;
 			else
 				count++;
 		}
@@ -143,19 +143,18 @@ void totalLineInHTML(string a)
 
 	for (const auto& i : lines)
 	{
-		Sum++;
+		SumOfLines++;
 	}
 	outfile.close();
-	totalLinesOfCode = totalLinesOfCode + Sum - count;
+	totalLinesOfCode = totalLinesOfCode + SumOfLines - count;
 }
 
-void listdir(string a)
+void listDir(string folderPath)
 {
-	int k = 0;
-	string folderPath = a;
+	int numberOfFiles = 0;
 	for (const auto& entry : filesystem::directory_iterator(folderPath)) {
 		if (entry.is_regular_file()) {
-			k++;
+			numberOfFiles++;
 			cout << entry.path() << endl;
 			string typeFile = entry.path().string();
 			int lengthOfLink = typeFile.length();
@@ -167,5 +166,5 @@ void listdir(string a)
 				totalLines(typeFile);
 		}
 	}
-	cout << "Number of file in directory: " << k << endl;
+	cout << "Number of file in directory: " << numberOfFiles << endl;
 }

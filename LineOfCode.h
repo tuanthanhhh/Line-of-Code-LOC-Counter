@@ -7,8 +7,8 @@
 
 using namespace std;
 
-
+extern int totalLinesOfCode;
 void totalLines(string a);
 void totalLineInPython(string a);
 void totalLineInHTML(string a);
-void listdir(string a);
+void listDir(string a);
