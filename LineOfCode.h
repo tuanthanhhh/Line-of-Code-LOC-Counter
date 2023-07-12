@@ -8,7 +8,7 @@
 using namespace std;
 
 extern int totalLinesOfCode;
-void totalLines(string a);
-void totalLineInPython(string a);
-void totalLineInHTML(string a);
-void listDir(string a);
+void totalLines(string pathOfFile);
+void totalLineInPython(string pathOfFile);
+void totalLineInHTML(string pathOfFile);
+void listDir(string pathOfFile);
